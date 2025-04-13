@@ -9,6 +9,7 @@ class AppServiceProvider extends ServiceProvider
 {
     public function boot(Router $router)
     {
-        $router->aliasMiddleware('dgiws.auth', SSOAuthenticateMiddleware::class);
+        $router->aliasMiddleware('dgiws.sso.auth', SSOAuthenticateMiddleware::class);
+        $router->aliasMiddleware('dgiws.sso.guest', SSOAuthenticateGuestMiddleware::class);
     }
 }
