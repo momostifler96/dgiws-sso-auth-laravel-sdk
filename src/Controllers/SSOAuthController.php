@@ -13,10 +13,10 @@ class SSOAuthController extends Controller
     {
         $provider = SSOService::getProvider();
 
-        $code_verifier = bin2hex(random_bytes(64)); // générer une chaîne sécurisée
+        $code_verifier = bin2hex(random_bytes(64));
         $code_challenge = SSOService::base64url_encode(hash('sha256', $code_verifier, true));
         $authorizationUrl = $provider->getAuthorizationUrl([
-            'code_challenge'         => $code_challenge, // pour PKCE
+            'code_challenge'         => $code_challenge,
             'code_challenge_method'  => 'S256'
         ]);
 
@@ -35,16 +35,14 @@ class SSOAuthController extends Controller
         if ($request->get('state') !== session('oauth2State')) {
             abort(403, 'Invalid state');
         }
-        // dd($request->all());
         $accessToken = $provider->getAccessToken('authorization_code', [
             'code' => $request->get('code'),
-            'code_verifier' => session('oauth2CodeVerifier') // si tu fais PKCE complet
+            'code_verifier' => session('oauth2CodeVerifier')
         ]);
 
         $resourceOwner = $provider->getResourceOwner($accessToken);
         $user = $resourceOwner->toArray();
-        // dd($user, $accessToken);
-        // ici, tu peux logger ou créer l’utilisateur dans ta base locale
+
         session(['user' => $user]);
         session(['access_token' => $accessToken->getToken()]);
         session(['access_token_expires' => $accessToken->getExpires()]);
