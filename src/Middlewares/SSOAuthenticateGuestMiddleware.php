@@ -1,6 +1,6 @@
 <?php
 
-namespace Momoledev\DgiwsAuthLaravelSdk;
+namespace Momoledev\DgiwsAuthLaravelSdk\Middlewares;
 
 use Closure;
 use Illuminate\Http\Request;

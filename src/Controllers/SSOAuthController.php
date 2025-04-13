@@ -1,9 +1,10 @@
 <?php
 
-namespace Momoledev\DgiwsAuthLaravelSdk;
+namespace Momoledev\DgiwsAuthLaravelSdk\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Momoledev\DgiwsAuthLaravelSdk\Services\SSOService;
 
 class SSOAuthController extends Controller
 {

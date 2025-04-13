@@ -1,6 +1,6 @@
 <?php
 
-namespace Momoledev\DgiwsAuthLaravelSdk;
+namespace Momoledev\DgiwsAuthLaravelSdk\Middlewares;
 
 use Carbon\Carbon;
 use Closure;
@@ -34,6 +34,8 @@ class SSOAuthenticateMiddleware
             if ($userRequest->successful()) {
                 $request->merge(['user' => $userRequest->json()['user']]);
                 return $next($request);
+            } else if ($userRequest->status() == 401) {
+                return redirect()->route('sso.login');
             }
             Log::error('Une erreur est survenue lors de la récupération des informations de l\'utilisateur.', ['error' => $userRequest->json()]);
             abort(500, 'Une erreur est survenue');
