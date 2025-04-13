@@ -36,6 +36,7 @@ class SSOAuthenticateMiddleware
                 $request->merge(['user' => $userRequest->json()['user']]);
                 return $next($request);
             } else if ($userRequest->status() == 401) {
+                session()->forget(['access_token', 'user']);
                 return redirect()->route(config('sso.login_route.name'));
             }
             Log::error('Une erreur est survenue lors de la récupération des informations de l\'utilisateur.', ['error' => $userRequest->json()]);

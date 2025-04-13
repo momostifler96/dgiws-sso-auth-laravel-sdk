@@ -42,6 +42,7 @@ class SSOAuthController extends Controller
 
         $resourceOwner = $provider->getResourceOwner($accessToken);
         $user = $resourceOwner->toArray();
+        session()->forget(['oauth2CodeVerifier', 'oauth2State']);
 
         session(['user' => $user]);
         session(['access_token' => $accessToken->getToken()]);
