@@ -7,7 +7,7 @@
         "laravel/framework": "^11.31",
         "nesbot/carbon": "^3.9"
     },
-    "license": "mit",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Momoledev\\DgiwsAuthLaravelSdk\\": "src/"
@@ -22,7 +22,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vendor\\Momoledev\\DgiwsAuthLaravelSdk\\AppServiceProvider"
+                "Momoledev\\DgiwsAuthLaravelSdk\\AppServiceProvider"
             ]
         }
     },
