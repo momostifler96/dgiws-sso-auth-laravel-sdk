@@ -19,7 +19,7 @@ class SSOAuthenticateGuestMiddleware
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
-        if ($request->session()->has('access_token') && $request->session()->has('user')) {
+        if (session()->has('access_token') && session()->has('user')) {
             return redirect('/');
         }
         return $next($request);
