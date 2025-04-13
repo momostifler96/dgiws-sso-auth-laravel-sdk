@@ -18,9 +18,10 @@ class SSOAuthenticateMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $user_info_url = config('sso.docker_container_name') . config('sso.user_info_path');
         if ($request->wantsJson()) {
             if ($request->bearerToken()) {
-                $userRequest = Http::withToken($request->bearerToken())->get(env('AUTH_CONTAINER_NAME') . '/api/account/me');
+                $userRequest = Http::withToken($request->bearerToken())->get($user_info_url);
                 if ($userRequest->successful()) {
                     $request->merge(['user' => $userRequest->json()['user']]);
                     return $next($request);
@@ -30,7 +31,7 @@ class SSOAuthenticateMiddleware
         } else if (!$request->session()->has('access_token') || $request->session()->get('access_token_expires') < Carbon::now()->timestamp || !$request->session()->has('user')) {
             return redirect()->route('sso.login');
         } else {
-            $userRequest = Http::withToken($request->session()->get('access_token'))->get(env('AUTH_CONTAINER_NAME') . '/api/account/me');
+            $userRequest = Http::withToken($request->session()->get('access_token'))->get($user_info_url);
             if ($userRequest->successful()) {
                 $request->merge(['user' => $userRequest->json()['user']]);
                 return $next($request);

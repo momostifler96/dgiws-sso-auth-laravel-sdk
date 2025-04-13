@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'docker_container_name' => env('SSO_SERVER_CONTAINER_NAME', 'auth'),
+    'docker_container_name' => env('SSO_SERVER_CONTAINER_NAME', 'dgiws-auth'),
     'base_url' => env('SSO_SERVER_URL'),
     'login_url' => env('SSO_SERVER_LOGIN_URL', env('SSO_SERVER_URL')),
     'authorize_url' => env('SSO_SERVER_AUTHORIZE_URL', env('SSO_SERVER_URL') . '/oauth/authorize'),
