@@ -11,7 +11,7 @@ class SSOService
     {
         if (!self::$provider) {
             self::$provider = new GenericProvider([
-                'clientId'                => config('sso.client_id'),
+                'clientId'                =>empty(config('sso.client_hosts_ids'))?config('sso.client_id'):config('sso.client_hosts_ids')[request()->host()],
                 'redirectUri'             => route(config('sso.callback_route.name')),
                 'urlAuthorize'            => config('sso.authorize_url'),
                 'urlAccessToken'          => config('sso.token_url'),
