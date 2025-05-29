@@ -9,9 +9,7 @@ return [
     'user_info_path' => env('SSO_SERVER_USER_INFO_PATH', '/api/account/me'),
     'user_info_url' => env('SSO_SERVER_USER_INFO_URL', env('SSO_SERVER_URL') . env('SSO_SERVER_USER_INFO_PATH', '/api/account/me')),
     'client_id' => env('SSO_SERVER_CLIENT_ID', ''),
-    'client_hosts_ids' => [
-
-    ],
+    'client_hosts_ids' => [],
     'client_secret' => env('SSO_SERVER_CLIENT_SECRET', null),
     'login_route' => [
         'path' => env('SSO_LOGIN_ROUTE_PATH', '/login'),
