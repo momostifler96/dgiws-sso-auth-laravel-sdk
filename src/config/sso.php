@@ -17,7 +17,7 @@ return [
         'name' => env('SSO_LOGIN_ROUTE_NAME', 'sso.login'),
     ],
     'callback_route' => [
-        'path' => env('SSO_CALLBACK_ROUTE_PATH', '/login/callback'),
+        'path' => env('SSO_CALLBACK_ROUTE_PATH', '/auth/callback'),
         'middlewares' => [],
         'name' => env('SSO_CALLBACK_ROUTE_NAME', 'sso.callback'),
     ],
