@@ -28,9 +28,7 @@ class SSOAuthenticateMiddleware
                 }
             }
             return response()->json(['message' => 'Unauthorized'], 401);
-        } else if (($request->session()->has('access_token') && ($request->session()->get('access_token_expires') < Carbon::now()->timestamp)) || !$request->session()->has('access_token')) {
-            return redirect()->route(config('sso.login_route.name'));
-        } else {
+        } else if ($request->session()->has('access_token')) {
             $userRequest = Http::withToken($request->session()->get('access_token'))->get($user_info_url);
             if ($userRequest->successful()) {
                 $request->merge(['user' => $userRequest->json()['user']]);
@@ -41,8 +39,9 @@ class SSOAuthenticateMiddleware
             }
             Log::error('Une erreur est survenue lors de la récupération des informations de l\'utilisateur.', ['error' => $userRequest->json()]);
             abort(500, 'Une erreur est survenue');
+        } else {
+            return redirect()->route(config('sso.login_route.name'));
         }
-
         return $next($request);
     }
 }
