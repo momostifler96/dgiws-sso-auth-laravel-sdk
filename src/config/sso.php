@@ -11,10 +11,22 @@ return [
     'client_id' => env('SSO_SERVER_CLIENT_ID', ''),
     'client_hosts_ids' => [],
     'client_secret' => env('SSO_SERVER_CLIENT_SECRET', null),
+    'user_model' => env('SSO_USER_MODEL', null),
+    'server_logout_url' => env('SSO_SERVER_LOGOUT_URL'),
     'login_route' => [
         'path' => env('SSO_LOGIN_ROUTE_PATH', '/login'),
-        'middlewares' => [],
+        'middlewares' => ['dgiws.sso.guest'],
         'name' => env('SSO_LOGIN_ROUTE_NAME', 'sso.login'),
+    ],
+    'logout_route' => [
+        'path' => env('SSO_LOGOUT_ROUTE_PATH', '/logout'),
+        'middlewares' => ['dgiws.sso.auth'],
+        'name' => env('SSO_LOGOUT_ROUTE_NAME', 'sso.logout'),
+    ],
+    'silent_logout' => [
+        'path' => env('SSO_SILENT_LOGOUT_ROUTE_PATH', '/oauth/silent-logout'),
+        'middlewares' => ['dgiws.sso.auth'],
+        'name' => env('SSO_SILENT_LOGOUT_ROUTE_NAME', 'sso.silent-logout'),
     ],
     'callback_route' => [
         'path' => env('SSO_CALLBACK_ROUTE_PATH', '/auth/callback'),
